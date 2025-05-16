@@ -5,16 +5,21 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'maptalks_new',
-    component: () => import("../components/maptalks_new.vue")
+    path: "/",
+    name: "maptalks_new",
+    component: () => import("../components/maptalks_new.vue"),
   },
   {
     path: "/h_videoMask",
     name: "h_videoMask",
     component: () => import("../components/height/h_videoMash.vue"),
   },
-]
+  {
+    path: "/h_videoMashGltf",
+    name: "h_videoMashGltf",
+    component: () => import("../components/height/h_videoMashGltf.vue"),
+  },
+];
 
 const router = new VueRouter({
   routes

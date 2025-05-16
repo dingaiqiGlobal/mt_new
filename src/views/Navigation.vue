@@ -29,6 +29,12 @@ export default {
           text: "高级-videoMask",
           path: "/h_videoMask",
         },
+        {
+          id: 1,
+          img: "/images/nav/height/h_videoMashGltf.jpg",
+          text: "高级-h_videoMashGltf",
+          path: "/h_videoMashGltf",
+        },
       ]
     };
   },
