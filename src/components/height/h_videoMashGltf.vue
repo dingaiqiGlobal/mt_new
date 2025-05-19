@@ -176,7 +176,7 @@ export default {
       const longitude = center[0] + this.params.longitude;
       const latitude = center[1] + this.params.latitude;
       this.renderMask(
-        [longitude, latitude, this.params.height],
+        [longitude, latitude, this.params.height],//锥形顶点位置
         this.params.horizontal,
         this.params.vertical,
         this.params.pitch,
@@ -189,9 +189,9 @@ export default {
       const topPoint = this.map.coordinateToPointAtRes(
         topCoord,
         this.map.getGLRes()
-      );
-      const zPoint = this.map.altitudeToPoint(topCoord.z, this.map.getGLRes());
-      const altitudePoint = this.map.altitudeToPoint(
+      );//锥形顶点几何
+      const zPoint = this.map.altitudeToPoint(topCoord.z, this.map.getGLRes());//自定义高程几何
+      const altitudePoint = this.map.altitudeToPoint(//锥形顶点高程几何
         altitude,
         this.map.getGLRes()
       );
@@ -274,7 +274,7 @@ export default {
         const line = new maptalks.LineString([coordinates[i], topCoord], {
           symbol: {
             lineColor: "#ff0600",
-            lineWidth: 2,
+            lineWidth: 3,
           },
         }).addTo(helperLinestringLayer);
       }
