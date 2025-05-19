@@ -40,7 +40,7 @@ export default {
       gltfLayer: null,
       mk: null,
       //UI
-      coordinate:[
+      coordinate: [
         [108.95908, 34.22002],
         [108.95974, 34.22002],
         [108.95974, 34.21955],
@@ -111,13 +111,9 @@ export default {
         antialias: { enable: true },
       },
     };
-    this.group = new maptalks.GroupGLLayer(
-      "group",
-      [this.gltfLayer],
-      {
-        sceneConfig,
-      }
-    );
+    this.group = new maptalks.GroupGLLayer("group", [this.gltfLayer], {
+      sceneConfig,
+    });
     this.group.addTo(this.map);
     /**
      * UI
@@ -176,25 +172,29 @@ export default {
       const longitude = center[0] + this.params.longitude;
       const latitude = center[1] + this.params.latitude;
       this.renderMask(
-        [longitude, latitude, this.params.height],//锥形顶点位置
+        [longitude, latitude, this.params.height], //锥形顶点位置
         this.params.horizontal,
         this.params.vertical,
         this.params.pitch,
         this.params.heading,
-        this.params.altitude,
+        this.params.altitude
       );
     },
     renderMask(f, h, v, pitch, heading, altitude) {
       const topCoord = new maptalks.Coordinate(f[0], f[1], f[2]);
+      //以指定的分辨率将坐标转换为二维点
       const topPoint = this.map.coordinateToPointAtRes(
         topCoord,
         this.map.getGLRes()
-      );//锥形顶点几何
-      const zPoint = this.map.altitudeToPoint(topCoord.z, this.map.getGLRes());//自定义高程几何
-      const altitudePoint = this.map.altitudeToPoint(//锥形顶点高程几何
+      );
+      //将高度转换为2d点
+      const zPoint = this.map.altitudeToPoint(topCoord.z, this.map.getGLRes());
+      //将海拔转换为2d点
+      const altitudePoint = this.map.altitudeToPoint(
         altitude,
         this.map.getGLRes()
       );
+      //计算交点（传入几何）
       let intersections = this.calculateIntersections(
         [topPoint.x, topPoint.y, zPoint],
         h,
@@ -204,6 +204,7 @@ export default {
         altitudePoint
       );
       const newCoordinates = intersections.map((p) => {
+        //以特定分辨率将二维点转换为坐标
         const coord = this.map.pointAtResToCoordinate(
           new maptalks.Point(p[0], p[1]),
           this.map.getGLRes()
@@ -234,6 +235,9 @@ export default {
       const headingRad = this.toRadians(heading);
       // 定义视锥体的四个方向向量（未旋转前）
       // 左上、右上、右下、左下
+      //第一个分量：水平方向的切线（±Math.tan(hRad)）。
+      //第二个分量：垂直方向的切线（±Math.tan(vRad)）。
+      //第三个分量：固定为 -1。在计算机图形学中，-1 可能表示方向指向屏幕内部，为了归一化
       const directions = [
         [-Math.tan(hRad), Math.tan(vRad), -1], // 左上
         [Math.tan(hRad), Math.tan(vRad), -1], // 右上
@@ -251,7 +255,7 @@ export default {
         const yNew = x * Math.sin(headingRad) + y * Math.cos(headingRad);
         return [xNew, yNew, z];
       });
-      // 计算射线与水平平面的交点
+      // 计算射线与水平平面的交点（一组方向向量与某个平面的交点）
       const intersections = rotatedDirections.map((dir) => {
         const t = (altitude - f[2]) / dir[2];
         // 计算交点坐标
