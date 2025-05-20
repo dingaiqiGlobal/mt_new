@@ -35,6 +35,12 @@ export default {
           text: "高级-h_videoMashGltf",
           path: "/h_videoMashGltf",
         },
+        {
+          id: 1,
+          img: "/images/nav/three/three_buildingScanning.jpg",
+          text: "three建筑扫描",
+          path: "/three_buildingScanning",
+        },
       ]
     };
   },

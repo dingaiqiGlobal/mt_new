@@ -19,6 +19,11 @@ const routes = [
     name: "h_videoMashGltf",
     component: () => import("../components/height/h_videoMashGltf.vue"),
   },
+  {
+    path: "/three_buildingScanning",
+    name: "three_buildingScanning",
+    component: () => import("../components/three/three_buildingScanning.vue"),
+  },
 ];
 
 const router = new VueRouter({

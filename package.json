@@ -12,6 +12,8 @@
     "dat.gui": "^0.7.9",
     "element-ui": "^2.15.14",
     "maptalks-gl": "^0.107.5",
+    "maptalks.three": "^0.40.1",
+    "three": "^0.176.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
