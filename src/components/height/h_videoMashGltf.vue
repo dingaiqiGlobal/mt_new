@@ -229,7 +229,7 @@ export default {
     },
     calculateIntersections(f, h, v, pitch, heading, altitude) {
       // 将角度转换为弧度
-      const hRad = this.toRadians(h / 2);
+      const hRad = this.toRadians(h / 2); //因为两边（裤衩子）都放大所以/2
       const vRad = this.toRadians(v / 2);
       const pitchRad = this.toRadians(pitch);
       const headingRad = this.toRadians(heading);
@@ -238,6 +238,11 @@ export default {
       //第一个分量：水平方向的切线（±Math.tan(hRad)）。
       //第二个分量：垂直方向的切线（±Math.tan(vRad)）。
       //第三个分量：固定为 -1。在计算机图形学中，-1 可能表示方向指向屏幕内部，为了归一化
+
+      //为什么使用 tan(hRad) 和 tan(vRad)
+      //tan(hRad) 计算的是水平方向的偏移比例（基于视角）。
+      //tan(vRad) 计算的是垂直方向的偏移比例（基于视角）。
+      //由于 hRad 和 vRad 是半视角，tan 函数可以计算出在 z = -1 平面上，x 和 y 的边界值。
       const directions = [
         [-Math.tan(hRad), Math.tan(vRad), -1], // 左上
         [Math.tan(hRad), Math.tan(vRad), -1], // 右上
