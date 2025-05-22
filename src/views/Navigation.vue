@@ -41,6 +41,12 @@ export default {
           text: "three建筑扫描",
           path: "/three_buildingScanning",
         },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_sort.jpg",
+          text: "webgl、cavans排序",
+          path: "/layer_sort",
+        },
       ]
     };
   },

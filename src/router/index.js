@@ -24,6 +24,11 @@ const routes = [
     name: "three_buildingScanning",
     component: () => import("../components/three/three_buildingScanning.vue"),
   },
+  {
+    path: "/layer_sort",
+    name: "layer_sort",
+    component: () => import("../components/layer/layer_sort.vue"),
+  },
 ];
 
 const router = new VueRouter({
