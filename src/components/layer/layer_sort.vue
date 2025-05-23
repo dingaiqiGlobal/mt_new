@@ -57,7 +57,7 @@ export default {
     /**
      * 排序
      */
-    this.sortLayer()
+    this.initUI()
   },
 
   methods: {
@@ -80,7 +80,7 @@ export default {
     },
     addVectorLayer2() {
       const layer = new maptalks.VectorLayer("vector2").addTo(this.map);
-      const point = new maptalks.Marker([116.392210,39.907120], {
+      const point = new maptalks.Marker([116.39221, 39.90712], {
         id: "marker2",
         properties: {
           name: "人民",
@@ -109,12 +109,30 @@ export default {
       });
       gltfLayer.addGeometry(gltfMarker);
     },
-    sortLayer(){
-        const layers=this.map.getLayers();
-        const vectorLayer = layers.filter(layer => layer instanceof maptalks.VectorLayer);
-        const otherLayers = layers.filter(layer => !(layer instanceof maptalks.VectorLayer));
-        this.map.sortLayers([...vectorLayer,...otherLayers]);
-    }
+    initUI() {
+      const gui = new dat.GUI();
+      const controls = {
+        sortLayer: false,
+      };
+      gui
+        .add(controls, "sortLayer")
+        .name("Sort Layers")
+        .onChange((value)=> {
+          if (value) {
+            this.sortLayer();
+          }
+        });
+    },
+    sortLayer() {
+      const layers = this.map.getLayers();
+      const vectorLayer = layers.filter(
+        (layer) => layer instanceof maptalks.VectorLayer
+      );
+      const otherLayers = layers.filter(
+        (layer) => !(layer instanceof maptalks.VectorLayer)
+      );
+      this.map.sortLayers([...vectorLayer, ...otherLayers]);
+    },
   },
 };
 </script>
